@@ -1,8 +1,12 @@
 package com.technicaltest.taskcontrol.task;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.technicaltest.taskcontrol.tag.Tag;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 @Table
@@ -20,6 +24,10 @@ public class Task {
     private Long id;
     private String description;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "task")
+    private Set<Tag> tags = new HashSet<>();
+
     public Task(Long id,
                 String description)
     {
@@ -27,9 +35,7 @@ public class Task {
         this.description = description;
     }
 
-    public Task() {
-
-    }
+    public Task() {}
 
     public Long getId() {
         return id;
