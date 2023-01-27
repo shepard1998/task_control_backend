@@ -9,6 +9,7 @@ public class TaskControlApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(TaskControlApplication.class, args);
+
     }
 
 }

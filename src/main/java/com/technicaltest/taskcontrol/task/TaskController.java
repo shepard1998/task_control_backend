@@ -30,15 +30,6 @@ public class TaskController
         return task;
     }
 
-    @PutMapping("/update/{taskId}")
-    public void updateTask(
-            @PathVariable Long taskId,
-            @RequestBody String description
-    )
-    {
-        taskService.updateTask(taskId, description);
-    }
-
     @PutMapping("/delete/{taskId}")
     public void deleteTask(@PathVariable Long taskId)
     {

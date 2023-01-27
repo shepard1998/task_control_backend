@@ -30,13 +30,14 @@ public class TagController
         tagService.addNewTag(tag);
         return tag;
     }
-
+    @CrossOrigin
     @PutMapping("/{tagId}/task/{taskId}")
     public Tag assignTaskToTag(
             @PathVariable Long tagId,
             @PathVariable Long taskId
     )
     {
+        System.out.println("ID:     " + tagId + " / " + taskId);
         Tag tag = tagService.findTagById(tagId);
         Task task = taskService.findTaskById(taskId);
         tag.setTask(task);
@@ -63,4 +64,5 @@ public class TagController
     {
         tagService.deleteTag(tagID);
     }
+
 }

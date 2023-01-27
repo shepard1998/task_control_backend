@@ -22,17 +22,14 @@ public class Task {
             generator = "task_sequence"
     )
     private Long id;
-    private String description;
 
     @JsonIgnore
     @OneToMany(mappedBy = "task")
     private Set<Tag> tags = new HashSet<>();
 
-    public Task(Long id,
-                String description)
+    public Task(Long id)
     {
         this.id = id;
-        this.description = description;
     }
 
     public Task() {}
@@ -43,13 +40,5 @@ public class Task {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }
