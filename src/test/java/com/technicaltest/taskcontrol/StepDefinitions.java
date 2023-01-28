@@ -1,6 +1,5 @@
 package com.technicaltest.taskcontrol;
 
-import com.technicaltest.taskcontrol.tag.Tag;
 import com.technicaltest.taskcontrol.task.Task;
 import groovy.util.logging.Log4j2;
 import io.cucumber.java.en.Given;
@@ -10,13 +9,11 @@ import io.restassured.response.Response;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.*;
+
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -57,39 +54,6 @@ public class StepDefinitions
         String url = BASE_URL + ":" + port + "/api/v1/task";
         List<Task> tasks = restTemplate.getForObject(url, List.class);
         assertTrue(!tasks.isEmpty());
-    }
-    @Then("new Tag list is created")
-    public void new_tag_list_is_created() {
-        String url = BASE_URL + ":" + port + "/api/v1/tag";
-        Tag tag1 = new Tag();
-        Tag tag2 = new Tag();
-
-        tag1.setText("Tag list ");
-        tag2.setText("#TEST");
-
-        Tag tag = restTemplate.postForObject(url, tag1, Tag.class);
-        assertNotNull(tag);
-        tagId_1 = tag.getId();
-
-        tag = restTemplate.postForObject(url, tag2, Tag.class);
-        assertNotNull(tag);
-        tagId_2 = tag.getId();
-    }
-    @Then("Tag list is assigned to the Task")
-    public void tag_list_is_assigned_to_the_task() {
-        String url = BASE_URL + ":" + port + "/api/v1/tag/{tagId}/task/{taskId}";
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<?> entity = new HttpEntity<>(headers);
-
-
-        ResponseEntity<Tag> responseEntity =
-                restTemplate.exchange(url, HttpMethod.PUT, entity, Tag.class, tagId_1, taskId);
-        ResponseEntity<Tag> responseEntity_2 =
-                restTemplate.exchange(url, HttpMethod.PUT, entity, Tag.class, tagId_2, taskId);
-
-        assertNotNull(responseEntity.getBody());
-        assertNotNull(responseEntity_2.getBody());
     }
 
 }

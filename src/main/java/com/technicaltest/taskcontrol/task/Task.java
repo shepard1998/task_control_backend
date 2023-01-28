@@ -1,11 +1,7 @@
 package com.technicaltest.taskcontrol.task;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.technicaltest.taskcontrol.tag.Tag;
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Entity
@@ -22,10 +18,7 @@ public class Task {
             generator = "task_sequence"
     )
     private Long id;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "task")
-    private Set<Tag> tags = new HashSet<>();
+    private String description;
 
     public Task(Long id)
     {
@@ -40,5 +33,13 @@ public class Task {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
